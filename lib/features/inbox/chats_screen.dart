@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
+import 'package:tiktok_clone/util/global_util.dart';
 
 import '../../constants/sizes.dart';
 
@@ -50,12 +51,14 @@ class _ChatsScreenState extends State<ChatsScreen> {
   }
 
   Widget _makeTile(int index) {
+    final isDark = isDarkMode(context);
     return ListTile(
       onLongPress: () => _deleteItem(index),
       onTap: _onChatTap,
-      leading: const CircleAvatar(
+      leading: CircleAvatar(
         radius: 30,
-        child: Text("P"),
+        backgroundColor: isDark ? Colors.grey.shade500 : null,
+        child: const Text("P"),
       ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

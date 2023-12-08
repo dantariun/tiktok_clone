@@ -63,12 +63,13 @@ class LogInScreen extends StatelessWidget {
           ]),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: isDartMode(context) ? null : Colors.grey.shade50,
-        elevation: 2,
+      bottomNavigationBar: Container(
+        color:
+            isDarkMode(context) ? Colors.grey.shade900 : Colors.grey.shade200,
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: Sizes.size32,
+          padding: const EdgeInsets.only(
+            top: Sizes.size32,
+            bottom: Sizes.size64,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,

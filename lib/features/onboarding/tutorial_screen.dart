@@ -114,8 +114,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
           ),
         ),
         bottomNavigationBar: BottomAppBar(
-            color: isDartMode(context) ? Colors.black : Colors.white,
-            surfaceTintColor: isDartMode(context) ? Colors.black : Colors.white,
+            color: isDarkMode(context) ? Colors.black : Colors.white,
+            surfaceTintColor: isDarkMode(context) ? Colors.black : Colors.white,
             child: AnimatedOpacity(
               opacity: _showingPage == Page.first ? 0 : 1,
               duration: const Duration(milliseconds: 200),

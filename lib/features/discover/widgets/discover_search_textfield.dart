@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/util/global_util.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
@@ -69,7 +70,9 @@ class _DiscoverSearchTextfieldState extends State<DiscoverSearchTextfield> {
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Colors.grey.shade200,
+                fillColor: isDarkMode(context)
+                    ? Colors.grey.shade800
+                    : Colors.grey.shade200,
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: Sizes.size12,
                   vertical: Sizes.size10,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/util/global_util.dart';
 
 import '../../constants/gaps.dart';
 
@@ -89,8 +90,10 @@ class _ActivityScreenState extends State<ActivityScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
+        shadowColor: isDark ? Colors.transparent : null,
         title: GestureDetector(
           onTap: _onToggleAnimations,
           child: Row(
@@ -158,38 +161,43 @@ class _ActivityScreenState extends State<ActivityScreen>
                       width: Sizes.size52,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
+                        color: isDark ? Colors.grey.shade800 : null,
                         border: Border.all(
                           width: 1,
-                          color: Colors.grey.shade400,
+                          color: isDark
+                              ? Colors.grey.shade800
+                              : Colors.grey.shade400,
                         ),
                       ),
                       child: const Center(
                         child: FaIcon(
                           FontAwesomeIcons.bell,
-                          color: Colors.black,
                         ),
                       ),
                     ),
                     title: RichText(
                       text: TextSpan(
                         text: "Account updates:",
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: isDark ? Colors.white : Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: Sizes.size16,
                         ),
                         children: [
-                          const TextSpan(
+                          TextSpan(
                             text: " Upload longer videos",
                             style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: Sizes.size16,
+                              color: isDark ? Colors.grey.shade400 : null,
                             ),
                           ),
                           TextSpan(
                             text: " $notification",
                             style: TextStyle(
-                              color: Colors.grey.shade500,
+                              color: isDark
+                                  ? Colors.grey.shade700
+                                  : Colors.grey.shade500,
                               fontWeight: FontWeight.normal,
                               fontSize: Sizes.size16,
                             ),
@@ -214,9 +222,9 @@ class _ActivityScreenState extends State<ActivityScreen>
           SlideTransition(
             position: _panelAnimation,
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                color: isDark ? Colors.grey.shade900 : Colors.white,
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(
                     Sizes.size5,
                   ),
@@ -232,16 +240,17 @@ class _ActivityScreenState extends State<ActivityScreen>
                     ListTile(
                       title: Row(
                         children: [
-                          FaIcon(
+                          Icon(
                             tab["icon"],
-                            color: Colors.black,
+                            // color: isDark ? Colors.white : Colors.black,
                             size: Sizes.size16,
                           ),
                           Gaps.h10,
                           Text(
                             tab["title"],
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              color: isDark ? Colors.white : null,
                             ),
                           ),
                         ],

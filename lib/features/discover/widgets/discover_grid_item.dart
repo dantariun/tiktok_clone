@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tiktok_clone/util/global_util.dart';
 
 import '../../../constants/gaps.dart';
 import '../../../constants/sizes.dart';
@@ -24,50 +25,51 @@ class DiscoverGridItem extends StatelessWidget {
                   ),
                 ),
                 Gaps.v10,
-                Text(
-                  "${constraints.maxWidth} This is very long caption for my tiktok that im upload just now currently",
+                const Text(
+                  "This is very long caption for my tiktok that im upload just now currently",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: Sizes.size14,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
                   ),
                 ),
                 Gaps.v5,
-                if (constraints.maxWidth > 250)
-                  DefaultTextStyle(
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade600,
-                    ),
-                    child: Row(
-                      children: [
-                        const CircleAvatar(
-                          radius: 12,
-                          child: Text("P"),
+                // if (constraints.maxWidth > 250)
+                DefaultTextStyle(
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: isDarkMode(context)
+                        ? Colors.grey.shade300
+                        : Colors.grey.shade600,
+                  ),
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 12,
+                        child: Text("P"),
+                      ),
+                      Gaps.h5,
+                      const Expanded(
+                        child: Text(
+                          "Pepper kim. Great Developer",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        Gaps.h5,
-                        const Expanded(
-                          child: Text(
-                            "Pepper kim. Great Developer",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Gaps.h4,
-                        FaIcon(
-                          FontAwesomeIcons.heart,
-                          size: Sizes.size16,
-                          color: Colors.grey.shade600,
-                        ),
-                        Gaps.h2,
-                        const Text(
-                          "2.9M",
-                        )
-                      ],
-                    ),
-                  )
+                      ),
+                      Gaps.h4,
+                      FaIcon(
+                        FontAwesomeIcons.heart,
+                        size: Sizes.size16,
+                        color: Colors.grey.shade600,
+                      ),
+                      Gaps.h2,
+                      const Text(
+                        "2.9M",
+                      )
+                    ],
+                  ),
+                )
               ],
             ));
   }

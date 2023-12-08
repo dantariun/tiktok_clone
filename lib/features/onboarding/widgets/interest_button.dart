@@ -37,7 +37,7 @@ class _InterestButtonState extends State<InterestButton> {
           border: Border.all(color: Colors.black.withOpacity(0.1)),
           color: _isSelected
               ? Theme.of(context).primaryColor
-              : isDartMode(context)
+              : isDarkMode(context)
                   ? Colors.grey.shade700
                   : Colors.white,
           borderRadius: BorderRadius.circular(

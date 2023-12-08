@@ -19,5 +19,5 @@ class GlobalUtil {
   }
 }
 
-bool isDartMode(BuildContext context) =>
+bool isDarkMode(BuildContext context) =>
     MediaQuery.of(context).platformBrightness == Brightness.dark;

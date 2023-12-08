@@ -95,7 +95,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        surfaceTintColor: Colors.white,
+        // surfaceTintColor: Colors.white,
         title: AnimatedOpacity(
             opacity: _showTitle ? 1 : 0,
             duration: const Duration(milliseconds: 300),
