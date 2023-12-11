@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tiktok_clone/constants/route_names.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 
 import 'constants/sizes.dart';
-import 'features/authentication/sign_up_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -84,7 +84,15 @@ class TiktokApp extends StatelessWidget {
             indicatorColor: Colors.white,
           ),
         ),
-        home: const SignUpScreen());
+        initialRoute: "/",
+        routes: RouteNames.routes
+        // {
+        //   "/": (context) => const SignUpScreen(),
+        //   "/username": (context) => const UsernameScreen(),
+        //   "/login": (context) => const LogInScreen()
+        // },
+        // home: const SignUpScreen(),
+        );
     // home: const MainNavigationScreen());
   }
 }

@@ -27,7 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(potato) => "${potato}";
 
-  static String m3(gender) => "Log in";
+  static String m3(gender) =>
+      "Log in ${Intl.gender(gender, female: 'madam', male: 'sir', other: '')}";
 
   static String m5(videoCount) =>
       "Create a profile, follow other accounts, make your own videos, and more.";
