@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/route_names.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
@@ -15,7 +16,8 @@ class SignUpScreen extends StatelessWidget {
     //   builder: (context) => const LogInScreen(),
     // ));
 
-    await Navigator.of(context).pushNamed(RouteNames.login);
+    // await Navigator.of(context).pushNamed(RouteNames.login);
+    context.push(RouteNames.login);
   }
 
   void _onEmailTap(BuildContext context) {
@@ -46,7 +48,11 @@ class SignUpScreen extends StatelessWidget {
             );
           }),
     ); */
-    Navigator.of(context).pushNamed(RouteNames.username);
+    // Navigator.of(context).pushNamed(RouteNames.username);
+    // context.push(RouteNames.username);
+    // context.pushNamed("username_screen");
+    // context.push("/users/pepper?show=likes");
+    context.pushNamed(RouteNames.username);
   }
 
   @override

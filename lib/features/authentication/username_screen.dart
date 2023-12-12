@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/route_names.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
@@ -42,8 +43,10 @@ class _UsernameScreenState extends State<UsernameScreen> {
     //     ),
     //   ),
     // );
-    Navigator.pushNamed(context, RouteNames.email,
-        arguments: EmailScreenArgs(_username));
+    // Navigator.pushNamed(context, RouteNames.email,
+    //     arguments: EmailScreenArgs(_username));
+
+    context.pushNamed(RouteNames.email, extra: EmailScreenArgs(_username));
   }
 
   void _onScaffoldTap() {
