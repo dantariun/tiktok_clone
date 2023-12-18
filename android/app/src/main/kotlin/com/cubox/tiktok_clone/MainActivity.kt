@@ -1,4 +1,4 @@
-package com.example.tiktok_clone
+package com.cubox.tiktok_clone
 
 import io.flutter.embedding.android.FlutterActivity
 
