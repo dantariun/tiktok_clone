@@ -44,6 +44,11 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       Tween(begin: 1.0, end: 1.3).animate(_buttonAnimationController);
 
   bool _isSelfieMode = false;
+  final bool _isPressed = false;
+  late double _currentZoom;
+  late double _maxZoom;
+  late double _minZoom;
+  late double currentPosition;
 
   late FlashMode _flashMode;
 
@@ -59,6 +64,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     await _cameraController.initialize();
     await _cameraController.prepareForVideoRecording(); // only ios
     _flashMode = _cameraController.value.flashMode;
+    _maxZoom = await _cameraController.getMaxZoomLevel();
+    _minZoom = await _cameraController.getMinZoomLevel();
+    _currentZoom = (_maxZoom + _minZoom) / 5;
     setState(() {});
   }
 
@@ -113,6 +121,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   }
 
   Future<void> _startRecording(TapDownDetails _) async {
+    currentPosition = _.globalPosition.dy;
     if (_cameraController.value.isRecordingVideo) return;
 
     await _cameraController.startVideoRecording();
@@ -172,6 +181,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     } else if (state == AppLifecycleState.resumed) {
       initCamera();
     }
+  }
+
+  Future<void> _onVerticalDragUpdate(DragUpdateDetails details) async {
+    double distance = currentPosition - details.globalPosition.dy;
+    await _cameraController.setZoomLevel(distance / 200 + _minZoom);
+    setState(() {});
   }
 
   @override
@@ -256,6 +271,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                       children: [
                         const Spacer(),
                         GestureDetector(
+                          // onPanUpdate: _changeCameraZoom,
+                          onVerticalDragUpdate: _onVerticalDragUpdate,
                           onTapDown: _startRecording,
                           onTapUp: (details) => _stopRecording,
                           child: ScaleTransition(
