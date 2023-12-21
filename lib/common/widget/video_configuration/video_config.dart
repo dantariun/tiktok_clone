@@ -11,6 +11,19 @@ import 'package:flutter/material.dart';
 
 // final videoConfig = VideoConfig();
 
-final videoConfig = ValueNotifier(false);
+// final videoConfig = ValueNotifier(false);
 
-final darkLightConfig = ValueNotifier(ThemeMode.dark);
+class VideoConfig extends ChangeNotifier {
+  bool isMuted = false;
+  bool isAutoplay = false;
+
+  void toggleIsMuted() {
+    isMuted = !isMuted;
+    notifyListeners();
+  }
+
+  void toggleAutoplay() {
+    isAutoplay = !isAutoplay;
+    notifyListeners();
+  }
+}

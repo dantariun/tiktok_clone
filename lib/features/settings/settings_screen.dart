@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:tiktok_clone/common/widget/video_configuration/video_config.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -32,30 +33,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         body: ListView(
           children: [
-            ValueListenableBuilder(
-              valueListenable: darkLightConfig,
-              builder: (context, value, child) => SwitchListTile.adaptive(
-                value: (value == ThemeMode.dark) ? true : false,
-                onChanged: (value) {
-                  if (darkLightConfig.value == ThemeMode.dark) {
-                    darkLightConfig.value = ThemeMode.light;
-                  } else {
-                    darkLightConfig.value = ThemeMode.dark;
-                  }
-                },
-                title: const Text("Dark | Light"),
-              ),
-            ),
-            ValueListenableBuilder(
-              valueListenable: videoConfig,
-              builder: (context, value, child) => SwitchListTile.adaptive(
-                value: value,
-                onChanged: (value) {
-                  videoConfig.value = !videoConfig.value;
-                },
-                title: const Text("Auto Mute"),
-                subtitle: const Text("Videos will be muted by default"),
-              ),
+            SwitchListTile.adaptive(
+              value: context.watch<VideoConfig>().isMuted,
+              onChanged: (value) {
+                context.read<VideoConfig>().toggleIsMuted();
+              },
+              title: const Text("Auto Mute"),
+              subtitle: const Text("Videos will be muted by default"),
             ),
             CheckboxListTile.adaptive(
               value: _notifications,

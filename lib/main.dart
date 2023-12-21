@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:tiktok_clone/common/widget/video_configuration/video_config.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:tiktok_clone/router.dart';
@@ -27,9 +28,13 @@ class TiktokApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // S.load(const Locale("en"));
-    return ValueListenableBuilder(
-      valueListenable: darkLightConfig,
-      builder: (context, value, child) => MaterialApp.router(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => VideoConfig(),
+        ),
+      ],
+      child: MaterialApp.router(
         routerConfig: router,
         scrollBehavior: MyCustomScrollBehavior(),
         debugShowCheckedModeBanner: false,
@@ -44,7 +49,6 @@ class TiktokApp extends StatelessWidget {
           Locale("en"),
           Locale("ko"),
         ],
-        themeMode: darkLightConfig.value,
         theme: ThemeData(
           textTheme: Typography.blackMountainView,
           brightness: Brightness.light,
