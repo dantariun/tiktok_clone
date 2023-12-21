@@ -12,3 +12,5 @@ import 'package:flutter/material.dart';
 // final videoConfig = VideoConfig();
 
 final videoConfig = ValueNotifier(false);
+
+final darkLightConfig = ValueNotifier(ThemeMode.dark);
