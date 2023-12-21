@@ -4,18 +4,32 @@ import '../features/authentication/username_screen.dart';
 
 class RouteNames {
   static String signUpURL = "/";
-  static String signUp = "signUp";
+  static String signUpName = "signUp";
 
-  static String username = "username";
-  static String usernameURL = "username";
-  static String login = "/login";
-  static String email = "email";
-  static String emailURL = "email";
+  static String loginURL = "/login";
+  static String loginName = "login";
+
+  static String interestsName = "interests";
+  static String interestsURL = "/tutoroal";
+
+  static String mainNavigationName = "mainNavigation";
+
+  static String activityName = "activity";
+  static String activityURL = "/activity";
+
+  static String chatsName = "chats";
+  static String chataURL = "/chats";
+
+  static String chatsDetailName = "chatsDetail";
+  static String chataDetailURL = ":chatId";
+
+  static String postVideoURL = "/upload";
+  static String postVideoName = "postVideo";
 
   static var routes = {
-    signUp: (context) => const SignUpScreen(),
-    username: (context) => const UsernameScreen(),
-    login: (context) => const LogInScreen(),
+    // signUp: (context) => const SignUpScreen(),
+    // username: (context) => const UsernameScreen(),
+    // login: (context) => const LogInScreen(),
     // email: (context) => const EmailScreen(),
   };
 }

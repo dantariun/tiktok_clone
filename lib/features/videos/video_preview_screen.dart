@@ -29,6 +29,12 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
     _initVideo();
   }
 
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
+
   Future<void> _initVideo() async {
     _videoPlayerController =
         VideoPlayerController.file(File(widget.video.path));
