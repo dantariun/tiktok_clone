@@ -10,7 +10,7 @@ import 'package:tiktok_clone/util/global_util.dart';
 
 import '../../features/discover/discover_screen.dart';
 import '../../features/inbox/indox_screen.dart';
-import '../../features/videos/video_timeline_screen.dart';
+import '../../features/videos/views/video_timeline_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   final String tab;
