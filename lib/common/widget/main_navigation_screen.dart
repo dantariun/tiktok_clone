@@ -6,11 +6,11 @@ import 'package:tiktok_clone/constants/route_names.dart';
 import 'package:tiktok_clone/features/main_navigation/widgets/nav_tab.dart';
 import 'package:tiktok_clone/features/main_navigation/widgets/post_video_button.dart';
 import 'package:tiktok_clone/features/user/user_profile_screen.dart';
+import 'package:tiktok_clone/features/videos/views/video_timeline_screen.dart';
 import 'package:tiktok_clone/util/global_util.dart';
 
 import '../../features/discover/discover_screen.dart';
 import '../../features/inbox/indox_screen.dart';
-import '../../features/videos/views/video_timeline_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   final String tab;
