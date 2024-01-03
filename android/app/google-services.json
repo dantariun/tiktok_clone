@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "255363654885",
+    "project_id": "tiktok-pepper-kim",
+    "storage_bucket": "tiktok-pepper-kim.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255363654885:android:336c9f3a9b50857db8a00c",
+        "android_client_info": {
+          "package_name": "com.cubox.tiktok_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfNEwKYB-_I_wIcMXAh5L8AiMfltL6mbA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
