@@ -55,7 +55,11 @@ class _EmailScreenState extends ConsumerState<EmailScreen> {
 
   void _onSubmit() {
     if (_email.isEmpty || _isEmailValid() != null) return;
-    ref.read(signUpForm.notifier).state = {"email": _email};
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {
+      ...state,
+      "email": _email,
+    };
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => const PasswordScreen(),
     ));
