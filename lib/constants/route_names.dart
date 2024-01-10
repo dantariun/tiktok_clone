@@ -1,7 +1,3 @@
-import '../features/authentication/login_screen.dart';
-import '../features/authentication/sign_up_screen.dart';
-import '../features/authentication/username_screen.dart';
-
 class RouteNames {
   static String signUpURL = "/";
   static String signUpName = "signUp";

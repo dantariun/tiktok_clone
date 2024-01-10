@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok_clone/constants/route_names.dart';
-import 'package:tiktok_clone/features/inbox/chat_detail_screen.dart';
 import 'package:tiktok_clone/util/global_util.dart';
 
 import '../../constants/sizes.dart';
