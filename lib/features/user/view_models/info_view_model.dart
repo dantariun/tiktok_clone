@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone/features/user/repos/user_repo.dart';
 import 'package:tiktok_clone/features/user/view_models/users_view_model.dart';
 
 class InfoViewModel extends AsyncNotifier {

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok_clone/features/videos/repos/video_playback_config_repo.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_vm.dart';
@@ -107,16 +106,7 @@ class TiktokApp extends ConsumerWidget {
           indicatorColor: Colors.white,
         ),
       ),
-      // initialRoute: "/",
-      // routes: RouteNames.routes
-      // {
-      //   "/": (context) => const SignUpScreen(),
-      //   "/username": (context) => const UsernameScreen(),
-      //   "/login": (context) => const LogInScreen()
-      // },
-      // home: const SignUpScreen(),
     );
-    // home: const MainNavigationScreen());
   }
 }
 

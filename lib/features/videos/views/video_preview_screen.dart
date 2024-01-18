@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:tiktok_clone/features/videos/view_models/timeline_vm.dart';
+import 'package:tiktok_clone/features/videos/view_models/upload_video_vm.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPreviewScreen extends ConsumerStatefulWidget {
@@ -22,13 +23,27 @@ class VideoPreviewScreen extends ConsumerStatefulWidget {
 }
 
 class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descController = TextEditingController();
   late final VideoPlayerController _videoPlayerController;
   bool _savedVideo = false;
+  String _title = "";
+  String _description = "";
 
   @override
   void initState() {
     super.initState();
     _initVideo();
+
+    _titleController.addListener(() {
+      _title = _titleController.text;
+      setState(() {});
+    });
+
+    _descController.addListener(() {
+      _description = _descController.text;
+      setState(() {});
+    });
   }
 
   @override
@@ -43,7 +58,6 @@ class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
 
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
-    // await _videoPlayerController.play();
     setState(() {});
   }
 
@@ -57,7 +71,9 @@ class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
   }
 
   void _onUploadPressed() async {
-    ref.read(timelineProvider.notifier).uploadVideo();
+    ref
+        .read(uploadVideoProvider.notifier)
+        .uploadVideo(File(widget.video.path), _title, _description, context);
   }
 
   @override
@@ -89,7 +105,38 @@ class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
         ],
       ),
       body: _videoPlayerController.value.isInitialized
-          ? VideoPlayer(_videoPlayerController)
+          ? Stack(
+              children: [
+                VideoPlayer(_videoPlayerController),
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    decoration: const BoxDecoration(color: Colors.white),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: const Text("      title        : "),
+                          title: TextField(
+                            minLines: 1,
+                            controller: _titleController,
+                          ),
+                        ),
+                        ListTile(
+                          leading: const Text("description  : "),
+                          title: TextField(
+                            minLines: 1,
+                            maxLines: 3,
+                            controller: _descController,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            )
           : null,
     );
   }
