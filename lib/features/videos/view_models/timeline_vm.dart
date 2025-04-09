@@ -8,17 +8,28 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
   late final VideosRepository _repository;
   List<VideoModel> _list = [];
 
-  @override
-  FutureOr<List<VideoModel>> build() async {
-    _repository = ref.read(videosRepo);
-    final result = await _repository.fetchVideos();
-    final newList = result.docs.map(
+  Future<List<VideoModel>> _fetchVideos({int? lastItemCreateAt}) async {
+    final result = await _repository.fetchVideos(
+      lastItemCreatedAt: lastItemCreateAt,
+    );
+    final videos = result.docs.map(
       (doc) => VideoModel.fromjson(
         doc.data(),
       ),
     );
-    _list = newList.toList();
+    return videos.toList();
+  }
+
+  @override
+  FutureOr<List<VideoModel>> build() async {
+    _repository = ref.read(videosRepo);
+    _list = await _fetchVideos(lastItemCreateAt: null);
     return _list;
+  }
+
+  fetchNextPagge() async {
+    final nextPage = await _fetchVideos(lastItemCreateAt: _list.last.createAt);
+    state = AsyncValue.data([..._list, ...nextPage]);
   }
 }
 
