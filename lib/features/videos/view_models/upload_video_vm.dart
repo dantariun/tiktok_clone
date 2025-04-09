@@ -41,7 +41,8 @@ class UploadVideoViewModel extends AsyncNotifier<void> {
             title: title,
           );
           await _repository.saveVideo(videoModel);
-          context.pushReplacement("/home");
+          context.pop();
+          context.pop();
         }
       });
     }

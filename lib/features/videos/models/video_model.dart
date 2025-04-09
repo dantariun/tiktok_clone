@@ -9,17 +9,27 @@ class VideoModel {
   final int comments;
   final int createAt;
 
-  VideoModel({
-    required this.description,
-    required this.fileUrl,
-    required this.thumbnailUrl,
-    required this.creatorUid,
-    required this.creator,
-    required this.likes,
-    required this.comments,
-    required this.createAt,
-    required this.title,
-  });
+  VideoModel(
+      {required this.description,
+      required this.fileUrl,
+      required this.thumbnailUrl,
+      required this.creatorUid,
+      required this.creator,
+      required this.likes,
+      required this.comments,
+      required this.createAt,
+      required this.title});
+
+  VideoModel.fromjson(Map<String, dynamic> json)
+      : title = json["title"],
+        description = json["description"],
+        fileUrl = json["fileUrl"],
+        thumbnailUrl = json["thumbnailUrl"],
+        creatorUid = json["creatorUid"],
+        creator = json["creator"],
+        likes = json["likes"],
+        comments = json["comments"],
+        createAt = json["createAt"];
 
   Map<String, dynamic> toJson() {
     return {

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/features/videos/models/video_model.dart';
 import 'package:tiktok_clone/features/videos/view_models/playback_config_vm.dart';
 import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
@@ -15,10 +16,13 @@ import 'video_comments.dart';
 class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
   final int index;
+  final VideoModel videoData;
+
   const VideoPost({
     super.key,
     required this.onVideoFinished,
     required this.index,
+    required this.videoData,
   });
 
   @override
@@ -35,8 +39,6 @@ class VideoPostState extends ConsumerState<VideoPost>
   final Duration _animationDuration = const Duration(milliseconds: 200);
   bool isPaused = false;
   bool _isMuted = false;
-
-  final String desc = "#JEONSOMI x #JIHYO #TWICE #FastForwardChallenge";
 
   void _onVideoChanged() {
     if (_videoPlayerController.value.isInitialized) {
@@ -151,9 +153,14 @@ class VideoPostState extends ConsumerState<VideoPost>
               Positioned.fill(
                 child: _videoPlayerController.value.isInitialized
                     ? VideoPlayer(_videoPlayerController)
-                    : Container(
-                        color: Colors.black,
-                      ),
+                    : (widget.videoData.thumbnailUrl != "")
+                        ? Image.network(
+                            widget.videoData.thumbnailUrl,
+                            fit: BoxFit.cover,
+                          )
+                        : Container(
+                            color: Colors.black,
+                          ),
               ),
               Positioned.fill(
                 child: GestureDetector(
@@ -184,23 +191,23 @@ class VideoPostState extends ConsumerState<VideoPost>
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                 left: 10,
                 bottom: 20,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "@Pepper",
-                      style: TextStyle(
+                      "@${widget.videoData.creator}",
+                      style: const TextStyle(
                         fontSize: Sizes.size20,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      "FastForwardChallenge",
-                      style: TextStyle(
+                      widget.videoData.description,
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                     )
@@ -240,21 +247,25 @@ class VideoPostState extends ConsumerState<VideoPost>
                               text: "",
                             ),
                     ),
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 25,
                       backgroundColor: Colors.black,
+                      foregroundImage: NetworkImage(
+                          "https://firebasestorage.googleapis.com/v0/b/tiktok-pepper-kim.appspot.com/o/avatar%2F${widget.videoData.creatorUid}?alt=media"),
                     ),
                     Gaps.v24,
                     VideoButton(
                       icon: FontAwesomeIcons.solidHeart,
-                      text: S.of(context).likeCount(20398),
+                      text: S.of(context).likeCount(widget.videoData.likes),
                     ),
                     Gaps.v24,
                     GestureDetector(
                       onTap: () => _onCommentTap(context),
                       child: VideoButton(
                         icon: FontAwesomeIcons.solidComment,
-                        text: S.of(context).commentCount(098345871231234),
+                        text: S
+                            .of(context)
+                            .commentCount(widget.videoData.comments),
                       ),
                     ),
                     Gaps.v24,
