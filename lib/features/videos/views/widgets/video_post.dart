@@ -40,6 +40,8 @@ class VideoPostState extends ConsumerState<VideoPost>
   final Duration _animationDuration = const Duration(milliseconds: 200);
   bool isPaused = false;
   bool _isMuted = false;
+  bool _isLiked = false;
+  int likeCount = 0;
 
   void _onVideoChanged() {
     if (_videoPlayerController.value.isInitialized) {
@@ -50,14 +52,22 @@ class VideoPostState extends ConsumerState<VideoPost>
     }
   }
 
-  void _onLikeTap() {
-    ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
+  void _onLikeTap() async {
+    await ref.read(videoPostProvider(widget.videoData.id).notifier).likeVideo();
+    if (_isLiked) {
+      likeCount--;
+    } else {
+      likeCount++;
+    }
+    _isLiked = !_isLiked;
+    setState(() {});
   }
 
   void _initVideoPlayer() async {
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
 
+    likeCount = widget.videoData.likes;
     _setVideoVolume();
 
     if (kIsWeb) {
@@ -65,6 +75,9 @@ class VideoPostState extends ConsumerState<VideoPost>
       await _videoPlayerController.setVolume(0);
     }
     _videoPlayerController.addListener(_onVideoChanged);
+    _isLiked = await ref
+        .read(videoPostProvider(widget.videoData.id).notifier)
+        .isLikedVideo();
     setState(() {});
   }
 
@@ -246,10 +259,12 @@ class VideoPostState extends ConsumerState<VideoPost>
                           ? const VideoButton(
                               icon: FontAwesomeIcons.volumeXmark,
                               text: "",
+                              color: Colors.white,
                             )
                           : const VideoButton(
                               icon: FontAwesomeIcons.volumeHigh,
                               text: "",
+                              color: Colors.white,
                             ),
                     ),
                     CircleAvatar(
@@ -263,13 +278,15 @@ class VideoPostState extends ConsumerState<VideoPost>
                       onTap: () => _onLikeTap(),
                       child: VideoButton(
                         icon: FontAwesomeIcons.solidHeart,
-                        text: S.of(context).likeCount(widget.videoData.likes),
+                        color: _isLiked ? Colors.red : Colors.white,
+                        text: S.of(context).likeCount(likeCount),
                       ),
                     ),
                     Gaps.v24,
                     GestureDetector(
                       onTap: () => _onCommentTap(context),
                       child: VideoButton(
+                        color: Colors.white,
                         icon: FontAwesomeIcons.solidComment,
                         text: S
                             .of(context)
@@ -280,6 +297,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                     const VideoButton(
                       icon: FontAwesomeIcons.share,
                       text: "Share",
+                      color: Colors.white,
                     ),
                   ],
                 ),
