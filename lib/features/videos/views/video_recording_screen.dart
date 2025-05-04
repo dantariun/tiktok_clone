@@ -27,23 +27,22 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   late CameraController _cameraController;
   late final AnimationController _buttonAnimationController =
       AnimationController(
-    vsync: this,
-    duration: const Duration(
-      milliseconds: 200,
-    ),
-  );
+        vsync: this,
+        duration: const Duration(milliseconds: 200),
+      );
 
   late final AnimationController _progressAnimationController =
       AnimationController(
-          vsync: this,
-          duration: const Duration(
-            seconds: 10,
-          ),
-          lowerBound: 0.0,
-          upperBound: 1.0);
+        vsync: this,
+        duration: const Duration(seconds: 10),
+        lowerBound: 0.0,
+        upperBound: 1.0,
+      );
 
-  late final Animation<double> _buttonAnimation =
-      Tween(begin: 1.0, end: 1.3).animate(_buttonAnimationController);
+  late final Animation<double> _buttonAnimation = Tween(
+    begin: 1.0,
+    end: 1.3,
+  ).animate(_buttonAnimationController);
 
   bool _isSelfieMode = false;
 
@@ -60,7 +59,9 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       return;
     }
     _cameraController = CameraController(
-        cameras[_isSelfieMode ? 1 : 0], ResolutionPreset.ultraHigh);
+      cameras[_isSelfieMode ? 1 : 0],
+      ResolutionPreset.ultraHigh,
+    );
 
     await _cameraController.initialize();
     await _cameraController.prepareForVideoRecording(); // only ios
@@ -123,8 +124,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     setState(() {});
   }
 
-  Future<void> _startRecording(TapDownDetails _) async {
-    currentPosition = _.globalPosition.dy;
+  Future<void> _startRecording(TapDownDetails details) async {
+    currentPosition = details.globalPosition.dy;
     if (_cameraController.value.isRecordingVideo) return;
 
     await _cameraController.startVideoRecording();
@@ -144,10 +145,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => VideoPreviewScreen(
-          video: video,
-          isPicked: false,
-        ),
+        builder: (context) => VideoPreviewScreen(video: video, isPicked: false),
       ),
     );
   }
@@ -167,10 +165,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => VideoPreviewScreen(
-          video: video,
-          isPicked: true,
-        ),
+        builder: (context) => VideoPreviewScreen(video: video, isPicked: true),
       ),
     );
   }
@@ -197,87 +192,82 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: !_hasPermission
-          ? SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Initializing...",
-                    style:
-                        TextStyle(color: Colors.white, fontSize: Sizes.size18),
-                  ),
-                  Gaps.v20,
-                  CircularProgressIndicator.adaptive()
-                ],
-              ),
-            )
-          : Stack(
-              alignment: Alignment.center,
-              children: [
-                if (!_noCamera && _cameraController.value.isInitialized)
-                  CameraPreview(_cameraController),
-                const Positioned(
-                  top: Sizes.size40,
-                  left: Sizes.size20,
-                  child: CloseButton(
-                    color: Colors.white,
-                  ),
-                ),
-                if (!_noCamera)
-                  Positioned(
-                    top: Sizes.size40,
-                    right: Sizes.size20,
-                    child: Column(
-                      children: [
-                        IconButton(
-                          color: Colors.white,
-                          onPressed: _toggleSelfieMode,
-                          icon: const Icon(
-                            Icons.cameraswitch,
-                          ),
-                        ),
-                        IconButton(
-                          color: _flashMode == FlashMode.off
-                              ? Colors.amber.shade200
-                              : Colors.white,
-                          onPressed: () => _setFlashMode(FlashMode.off),
-                          icon: const Icon(
-                            Icons.flash_off_rounded,
-                          ),
-                        ),
-                        IconButton(
-                          color: _flashMode == FlashMode.always
-                              ? Colors.amber.shade200
-                              : Colors.white,
-                          onPressed: () => _setFlashMode(FlashMode.always),
-                          icon: const Icon(
-                            Icons.flash_on_rounded,
-                          ),
-                        ),
-                        IconButton(
-                          color: _flashMode == FlashMode.auto
-                              ? Colors.amber.shade200
-                              : Colors.white,
-                          onPressed: () => _setFlashMode(FlashMode.auto),
-                          icon: const Icon(
-                            Icons.flash_auto_rounded,
-                          ),
-                        ),
-                        IconButton(
-                          color: _flashMode == FlashMode.torch
-                              ? Colors.amber.shade200
-                              : Colors.white,
-                          onPressed: () => _setFlashMode(FlashMode.torch),
-                          icon: const Icon(
-                            Icons.flashlight_on_rounded,
-                          ),
-                        ),
-                      ],
+      body:
+          !_hasPermission
+              ? SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Initializing...",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: Sizes.size18,
+                      ),
                     ),
+                    Gaps.v20,
+                    CircularProgressIndicator.adaptive(),
+                  ],
+                ),
+              )
+              : Stack(
+                alignment: Alignment.center,
+                children: [
+                  if (!_noCamera && _cameraController.value.isInitialized)
+                    CameraPreview(_cameraController),
+                  const Positioned(
+                    top: Sizes.size40,
+                    left: Sizes.size20,
+                    child: CloseButton(color: Colors.white),
                   ),
-                Positioned(
+                  if (!_noCamera)
+                    Positioned(
+                      top: Sizes.size40,
+                      right: Sizes.size20,
+                      child: Column(
+                        children: [
+                          IconButton(
+                            color: Colors.white,
+                            onPressed: _toggleSelfieMode,
+                            icon: const Icon(Icons.cameraswitch),
+                          ),
+                          IconButton(
+                            color:
+                                _flashMode == FlashMode.off
+                                    ? Colors.amber.shade200
+                                    : Colors.white,
+                            onPressed: () => _setFlashMode(FlashMode.off),
+                            icon: const Icon(Icons.flash_off_rounded),
+                          ),
+                          IconButton(
+                            color:
+                                _flashMode == FlashMode.always
+                                    ? Colors.amber.shade200
+                                    : Colors.white,
+                            onPressed: () => _setFlashMode(FlashMode.always),
+                            icon: const Icon(Icons.flash_on_rounded),
+                          ),
+                          IconButton(
+                            color:
+                                _flashMode == FlashMode.auto
+                                    ? Colors.amber.shade200
+                                    : Colors.white,
+                            onPressed: () => _setFlashMode(FlashMode.auto),
+                            icon: const Icon(Icons.flash_auto_rounded),
+                          ),
+                          IconButton(
+                            color:
+                                _flashMode == FlashMode.torch
+                                    ? Colors.amber.shade200
+                                    : Colors.white,
+                            onPressed: () => _setFlashMode(FlashMode.torch),
+                            icon: const Icon(Icons.flashlight_on_rounded),
+                          ),
+                        ],
+                      ),
+                    ),
+                  Positioned(
                     bottom: Sizes.size40,
                     width: MediaQuery.of(context).size.width,
                     child: Row(
@@ -318,17 +308,19 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                           child: Container(
                             alignment: Alignment.center,
                             child: IconButton(
-                                onPressed: _onPickVideoPressed,
-                                icon: const FaIcon(
-                                  FontAwesomeIcons.image,
-                                  color: Colors.white,
-                                )),
+                              onPressed: _onPickVideoPressed,
+                              icon: const FaIcon(
+                                FontAwesomeIcons.image,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
-                        )
+                        ),
                       ],
-                    ))
-              ],
-            ),
+                    ),
+                  ),
+                ],
+              ),
     );
   }
 }
